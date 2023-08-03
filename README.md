@@ -1,0 +1,2 @@
+# ait-template
+AITテンプレート
