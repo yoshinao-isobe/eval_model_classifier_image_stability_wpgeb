@@ -47,13 +47,14 @@ fi
 
 if [ "$CLONE_TYPE" = "S" ]; then
  git remote set-url origin git@github.com:$GITHUB_ACCOUNT/$REPO_NAME
- git pull
 fi
 
 git add deploy
 git add develop
 git add tool
-git add LICENSE.txt readme.md ThirdPartyNotices.txt
+git add LICENSE.txt 
+git add readme.md 
+git add ThirdPartyNotices.txt
 
 if [ "$INPUT_INVENTORY_ADD_FLAG" = "Y" ]; then 
  git add local_qai/inventory
@@ -68,3 +69,4 @@ COMMIT_ID=$(git show --format="%H" --no-patch)
 echo "------------------ Repository URL Start ------------------"
 echo "https://github.com/$GITHUB_ACCOUNT/$REPO_NAME/tree/$COMMIT_ID"
 echo "------------------ Repository URL End ------------------"
+

@@ -48,13 +48,14 @@ if %errorlevel%==0 (
 
 if %CLONE_TYPE%==S (
   git remote set-url origin git@github.com:%GITHUB_ACCOUNT%/%REPO_NAME%.git
-  git pull 
 )
 
 git add deploy
 git add develop
 git add tool
-git add LICENSE.txt readme.md ThirdPartyNotices.txt
+git add LICENSE.txt
+git add readme.md
+git add ThirdPartyNotices.txt
 
 if %INPUT_INVENTORY_ADD_FLAG%==Y (
  git add local_qai/inventory
