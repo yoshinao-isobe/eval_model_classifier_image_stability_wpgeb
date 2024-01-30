@@ -14,6 +14,12 @@ docker system prune -f
 rem ビルド
 echo start docker build...
 docker build -f ..\deploy\container\dockerfile -t %DOCKER_IMAGE_NAME% ..\deploy\container
+if %errorlevel% neq 0 (
+	echo;
+	echo ERROR:docker build error. Please check ..\deploy\container\dockerfile.
+	pause
+	exit /b
+)
 
 rem #####AITライセンス情報出力#####
 
@@ -29,6 +35,12 @@ docker system prune -f
 rem ビルド
 echo start docker build...
 docker build -t %LICENSE_DOCKER_IMAGE_NAME% -f ..\deploy\container\dockerfile_license ..\deploy\container
+if %errorlevel% neq 0 (
+	echo;
+	echo ERROR:docker build error. Please check ..\deploy\container\dockerfile_license
+	pause
+	exit /b
+)
 
 rem 実行
 echo run docker...
