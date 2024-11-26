@@ -47,13 +47,30 @@ set /P INPUT_COMMIT_COMMENT=
 
 echo Inputed commit comment : %INPUT_COMMIT_COMMENT%
 
-cd ..
+cd %~dp0..
 
-git remote get-url origin > repo_url.txt
-for /f "tokens=1" %%a in (repo_url.txt) do (
-  set REPO_URL=%%a
+REM 引数が与えられたかどうかで分岐をする.
+if "%1"=="" (
+  REM 引数がなければ git remote get-url origin を使って URL を取得.
+    git remote get-url origin > repo_url.txt
+    for /f "tokens=1" %%a in (repo_url.txt) do (
+      set REPO_URL=%%a
+    )
+    del repo_url.txt
+) else (
+    REM 引数があれば、リモート URL の設定を行う.git remote -vでリモートの有無を判定.
+    for /f "tokens=1" %%i in ('git remote -v') do (
+      set REMOTE=%%i
+    )
+    if defined REMOTE (
+        REM リモートリポジトリが見つかれば URL を更新.
+        git remote set-url origin %1
+    ) else (
+        REM リモートリポジトリが見つからなければ新しく追加.
+        git remote add origin %1
+    )
+    set REPO_URL=%1
 )
-del repo_url.txt
 
 echo "%REPO_URL%" | find "https" >NUL
 if %errorlevel%==0 (
