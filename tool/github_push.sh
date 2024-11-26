@@ -59,7 +59,23 @@ echo Inputed commit comment : $INPUT_COMMIT_COMMENT
 
 cd ..
 
-REPO_URL=$(git remote get-url origin)
+# 引数が与えられたかどうかで分岐
+if [ -z "$1" ]; then
+  # 引数がなければ git remote get-url origin を使って URL を取得
+  REPO_URL=$(git remote get-url origin)
+else
+  # 引数があれば、リモート URL の設定を行う
+  REMOTE=$(git remote -v)
+
+  if [ -n "$REMOTE" ]; then
+    # リモートリポジトリが見つかれば URL を更新
+    git remote set-url origin $1
+  else
+    # リモートリポジトリが見つからなければ新しく追加
+    git remote add origin $1
+  fi
+  REPO_URL=$1
+fi
 
 if [ "`echo $REPO_URL | grep 'https' `" ]; then
  CLONE_TYPE="H"
