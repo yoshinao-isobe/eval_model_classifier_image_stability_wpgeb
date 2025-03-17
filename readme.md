@@ -9,8 +9,7 @@ of neural classifiers. The definition of the
 weight-perturbed generalization bound and the meaning of
 AIT parameters (options)
 are explained in the manual of WP-GEB-Estimator-2 and
-the manual can be downloaded from the web-site of 
-[WP-GEB-Estimator](https://staff.aist.go.jp/y-isobe/wp-geb-estimator/).
+the manual can be downloaded from [the web-site of WP-GEB-Estimator](https://staff.aist.go.jp/y-isobe/wp-geb-estimator/).
 
 AIT (AI Test package) is a standardized software package 
 used in [Qunomon](https://aistairc.github.io/qunomon/index_en.html) for assessing AI quality. 
