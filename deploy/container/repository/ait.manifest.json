@@ -1,0 +1,178 @@
+{
+  "name": "eval_model_classifier_image_stability_wpgeb",
+  "description": "This AIT is a simplified version of WP-GEB-Estimator-2, designed to estimates weight-perturbed generalization bounds. It can be used for evaluating the statistically certified stability of neural classifiers. The manual can be downloaded from the web-site of WP-GEB-Estimator (https://staff.aist.go.jp/y-isobe/wp-geb-estimator/).",
+  "source_repository": "https://github.com/aistairc/eval_model_classifier_image_stability_wpgeb",
+  "version": "0.1",
+  "quality": "https://ait-hub.pj.aist.go.jp/ait-hub/api/0.0.1/qualityDimensions/機械学習品質マネジメントガイドライン第三版/C-2機械学習モデルの安定性",
+  "keywords": [
+    "generalization risk"
+  ],
+  "references": [],
+  "licenses": [
+    "Apache License Version 2.0"
+  ],
+  "inventories": [
+    {
+      "name": "images_gz",
+      "type": "dataset",
+      "description": "The list (gzipped flat numpy array) of the images in the test dataset. Note: the image data are directly input to the classifier without any normalization. For example, if a classifier is trained by the normalized gray scale (0, 1) instead of (0, 255) in MNIST, then the image file with (already normalized) gray scale (0, 1) has to be loaded in this AIT.",
+      "requirement": {
+        "format": [
+          "gz"
+        ]
+      }
+    },
+    {
+      "name": "labels_gz",
+      "type": "dataset",
+      "description": "The list (gzipped flat numpy array) of the labels in the test dataset",
+      "requirement": {
+        "format": [
+          "gz"
+        ]
+      }
+    },
+    {
+      "name": "model_h5",
+      "type": "model",
+      "description": "The evaluated model (classifier) by the test dataset",
+      "requirement": {
+        "format": [
+          "h5"
+        ]
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "dataset_size",
+      "type": "int",
+      "description": "dataset size used for testing",
+      "default_val": "1000"
+    },
+    {
+      "name": "image_width",
+      "type": "int",
+      "description": "width of each image",
+      "default_val": "32"
+    },
+    {
+      "name": "image_height",
+      "type": "int",
+      "description": "height of each image",
+      "default_val": "32"
+    },
+    {
+      "name": "color_size",
+      "type": "int",
+      "description": "color size of each image",
+      "default_val": "3"
+    },
+    {
+      "name": "search_batch_size",
+      "type": "int",
+      "description": "batch size for parallel search",
+      "default_val": "20"
+    },
+    {
+      "name": "prediction_batch_size",
+      "type": "int",
+      "description": "batch size for parallel prediction",
+      "default_val": "200"
+    },
+    {
+      "name": "perturb_ratio",
+      "type": "float",
+      "description": "ratio of maximum weight-perturbation to weight",
+      "default_val": "0.001"
+    },
+    {
+      "name": "skip_search",
+      "type": "int",
+      "description": "1 if gradient-based search is skipped (0 otherwise)",
+      "default_val": "0"
+    },
+    {
+      "name": "err_threshold",
+      "type": "float",
+      "description": "acceptable error threshold",
+      "default_val": "0.01"
+    },
+    {
+      "name": "confidence",
+      "type": "float",
+      "description": "confidence of generalization bounds",
+      "default_val": "0.9"
+    }
+  ],
+  "report": {
+    "measures": [
+      {
+        "name": "gen_err_ub",
+        "type": "float",
+        "description": "generalization error upper bound (no weight-perturbation)",
+        "structure": "single",
+        "min": "0",
+        "max": "1"
+      },
+      {
+        "name": "test_err",
+        "type": "float",
+        "description": "test error (no weight-perturbation)",
+        "structure": "single",
+        "min": "0",
+        "max": "1"
+      },
+      {
+        "name": "wp_gen_risk_ub",
+        "type": "float",
+        "description": "weight-perturbed generalization risk upper bound",
+        "structure": "single",
+        "min": "0",
+        "max": "1"
+      },
+      {
+        "name": "wp_test_risk_ub",
+        "type": "float",
+        "description": "weight-perturbed test risk upper bound",
+        "structure": "single",
+        "min": "0",
+        "max": "1"
+      },
+      {
+        "name": "wp_gen_err_ub",
+        "type": "float",
+        "description": "weight-perturbed generalization error upper bound",
+        "structure": "single",
+        "min": "0",
+        "max": "1"
+      },
+      {
+        "name": "wp_test_err_ub",
+        "type": "float",
+        "description": "weight-perturbed test error upper bound",
+        "structure": "single",
+        "min": "0",
+        "max": "1"
+      }
+    ],
+    "resources": [
+      {
+        "name": "estimation_result",
+        "type": "text",
+        "description": "estimation result"
+      },
+      {
+        "name": "input_output_data",
+        "type": "table",
+        "description": "input data and output data"
+      }
+    ]
+  },
+  "downloads": [
+    {
+      "name": "Log",
+      "description": "AIT log"
+    }
+  ]
+}

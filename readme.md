@@ -1,21 +1,26 @@
 # eval_model_classifier_image_stability_wpgeb
 
-## description
+## Abstract
 
-* outline of AIT
+This is an AIT of simplified (revised) WP-GEB-Estimator-2, 
+designed to estimates weight-perturbed generalization bounds. 
+It can be used for evaluating the statistically certified stability 
+of neural classifiers. The definition of the
+weight-perturbed generalization bound and the meaning of
+AIT parameters (options)
+are explained in the manual of WP-GEB-Estimator-2 and
+the manual can be downloaded from the web-site of 
+[WP-GEB-Estimator](https://staff.aist.go.jp/y-isobe/wp-geb-estimator/).
 
-***
+AIT (AI Test package) is a standardized software package 
+used in [Qunomon](https://aistairc.github.io/qunomon/index_en.html) for assessing AI quality. 
+Qunomon is a flexible framework designed for the
+quality evaluation of machine learning components.
 
-:::note info
-The following files should be added by the user.
+## License
 
-*./readme.md
-Please describe the outline of AIT.
+[Apache License Version 2.0](LICENSE.txt)
 
-*./LICENSE.txt
-Please change if necessary.
-
-:::
 
 
 
