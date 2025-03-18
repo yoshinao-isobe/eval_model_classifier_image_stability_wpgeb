@@ -1,5 +1,6 @@
-This dataset is a part (1000 images) of the MNIST test-database of
-handwritten digits, originally created by Yann LeCun, Corinna Cortes,
-and Christopher Burges. See the following website of Yann LeCun.
-http://yann.lecun.com/
 
+This dataset is a part (1000 images) of the MNIST database, originally
+created by Yann LeCun, Corinna Cortes, and Christopher Burges. The
+dataset is licensed under the Creative Commons Attribution-Share Alike
+3.0 License (CC BY-SA 3.0). The original dataset can be found at
+http://yann.lecun.com/exdb/mnist/.
