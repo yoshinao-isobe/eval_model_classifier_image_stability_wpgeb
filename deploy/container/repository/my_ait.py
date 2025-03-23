@@ -190,7 +190,7 @@ if not is_ait_launch:
      manifest_genenerator.add_ait_parameters(name='search_batch_size',
                                              type_='int',
                                              description='batch size for parallel search', 
-                                             default_val='20')
+                                             default_val='10')
      manifest_genenerator.add_ait_parameters(name='prediction_batch_size',
                                              type_='int',
                                              description='batch size for parallel prediction', 
@@ -576,56 +576,61 @@ def main() -> None:
                  'caused by weight-perturbations for the image exceeds '
                  'the acceptable error threshold which is less than {:g}%. ').format(
         param_err_threshold * 100)
-    info_str += ('Generalization acceptance error threshold is the expected value of'
-                 'the acceptable error threshold for any input-image and it is less than'
+    info_str += ('Generalization acceptance error threshold is the expected value of '
+                 'the acceptable error threshold for any input-image, and it is less than'
                  '{:.2f}% at least {:g}% confidence. \n\n').format(
         gen_err_thr_ub * 100, conf_risk * 100)
 
     info_str += '(Elapsed time for estimation: {:.1f} [sec])\n'.format(elapsed_time)
 
     # make input output data (csv)
-    info_csv = ''
-    info_csv += 'images_file_name, labels_file_name, model_file_name, '
-    info_csv += 'dataset_size, image_width, image_height, color_size, '
-    info_csv += 'search_batch_size, prediction_batch_size, perturb_ratio, '
-    info_csv += 'skip_search, err_threshold, confidence, '
+    info_csv = 'variable name, description, value\n'
 
-    info_csv += 'perturbed_params, '
-    info_csv += 'gen_err_ub, test_err, err_num_search, '
-    info_csv += 'non_det_rate_ub, perturb_sample_size, practical_err_threshold, '
+    info_csv += 'images_file_name, images in the test dataset, ' + str(images_file_name) + '\n'
+    info_csv += 'labels_file_name, labels in the test dataset, ' + str(labels_file_name) + '\n'
+    info_csv += 'model_file_name, evaluated classifier, ' + str(model_file_name) + '\n '
+    
+    info_csv += 'dataset_size, dataset size used for testing, ' + str(param_dataset_size) + '\n'
+    info_csv += 'image_width, width of each image, ' + str(param_image_width) + '\n'
+    info_csv += 'image_height, height of each image, ' + str(param_image_height) + '\n'
+    info_csv += 'color_size, RGB:3 or Gray:1, ' +  str(param_color_size) + '\n'
+    info_csv += 'search_batch_size, batch size for parallel search, ' + str(param_search_batch_size) + '\n'
+    info_csv += 'prediction_batch_size, batch size for parallel prediction, ' + str(param_prediction_batch_size)  + '\n'
+    info_csv += 'perturb_ratio, ratio of maximum weight-perturbation to weight, ' + str(param_perturb_ratio) + '\n'
+    info_csv += 'skip_search, skip search if 1, ' + str(param_skip_search) + '\n'
+    info_csv += 'err_threshold, acceptable error threshold, ' + str(param_err_threshold) + '\n'
+    info_csv += 'confidence, confidence of generalization bounds, ' + str(param_confidence) + '\n'
 
-    info_csv += 'wp_gen_risk_ub, wp_test_risk_ub, conf_risk, conf0_risk, '
-    info_csv += 'gen_err_thr_ub, '
-    info_csv += 'wp_gen_err_ub, wp_test_err_ub, conf_err, conf0_err\n'
-
-    info_csv += str(images_file_name) + ', ' + str(labels_file_name) + ', ' + str(model_file_name) + ', '
-    info_csv += str(param_dataset_size) + ', ' + str(param_image_width) + ', '
-    info_csv += str(param_image_height) + ', ' + str(param_color_size) + ', '
-    info_csv += str(param_search_batch_size) + ', ' + str(param_prediction_batch_size)  + ', '
-    info_csv += str(param_perturb_ratio) + ', '
-    info_csv += str(param_skip_search) + ', ' + str(param_err_threshold) + ', '
-    info_csv += str(param_confidence) + ', '
-
-    info_csv += str(p_params_size) + ', '
-    info_csv += str(gen_err_ub) + ', ' + str(test_err) + ', '
+    info_csv += 'perturbed_size, the number of perturbed weigh-parameters, ' + str(p_params_size) + '\n'
+    info_csv += 'gen_err_ub, generalization error upper bound (no weight-perturbation), ' + str(gen_err_ub) + '\n'
+    info_csv += 'test_err, test error (no weight-perturbation), ' + str(test_err) + '\n'
 
     if param_skip_search == 0:
-        info_csv += str(err_num_search) + ', ' + str(non_det_rate_ub) + ', '
+        info_csv += 'err_num_search, the number of detected risky data by search, ' + str(err_num_search) + '\n'
+        info_csv += 'non_det_rate_ub, generalization non-detection rate bound, ' + str(non_det_rate_ub) + '\n'
     else:
-        info_csv += not_available + ', ' + not_available + ', '
+        info_csv += 'err_num_search, the number of detected risky data by search, ' + not_available + '\n'
+        info_csv += 'non_det_rate_ub, generalization non-detection rate bound, ' + not_available + '\n'
 
-    info_csv += str(perturb_sample_size) + ', ' + str(practical_err_thr) + ', '
+    info_csv += 'perturb_sample_size, perturbation sample size, ' + str(perturb_sample_size) + '\n'
+    info_csv += 'practical_err_thr, practically used threshold instead of err_threshold, ' + str(practical_err_thr) + '\n'
 
-    info_csv += str(wp_gen_risk_ub) + ', '
-    info_csv += str(wp_test_risk_ub) + ', ' + str(conf_risk) + ', ' + str(conf0_risk) + ', '
-    info_csv += str(gen_err_thr_ub) + ', '
+    info_csv += 'wp_gen_risk_ub, weight-perturbed generalization risk upper bound, ' + str(wp_gen_risk_ub) + '\n'
+    info_csv += 'wp_test_risk_ub, weight-perturbed test risk upper bound, ' + str(wp_test_risk_ub) + '\n'
+    info_csv += 'conf_risk, confidence of wp_gen_risk_ub, ' + str(conf_risk) + '\n'
+    info_csv += 'conf0_risk, confidence of wp_test_risk_ub, ' + str(conf0_risk) + '\n'
+    info_csv += 'gen_err_thr_ub, generalization acceptance error threshold, ' + str(gen_err_thr_ub) + '\n'
 
     if avl_err:
-        info_csv += str(wp_gen_err_ub) + ', ' + str(wp_test_err_ub) + ', '
-        info_csv += str(conf_err) + ', ' + str(conf0_err) + '\n'
+        info_csv += 'wp_gen_err_ub, weight-perturbed generalization error upper bound, ' + str(wp_gen_err_ub) + '\n'
+        info_csv += 'wp_test_err_ub, weight-perturbed test error upper bound, ' + str(wp_test_err_ub) + '\n'
+        info_csv += 'conf_err, confidence of wp_gen_err_ub, ' + str(conf_err) + '\n'
+        info_csv += 'conf0_err, confidence of wp_test_err_ub, ' + str(conf0_err) + '\n'
     else:
-        info_csv += not_available + ', ' + not_available + ', '
-        info_csv += not_available + ', ' + not_available + '\n'
+        info_csv += 'wp_gen_err_ub, weight-perturbed generalization error upper bound, ' + not_available + '\n'
+        info_csv += 'wp_test_err_ub, weight-perturbed test error upper bound, ' + not_available + '\n'
+        info_csv += 'conf_err, confidence of wp_gen_err_ub, ' + not_available + '\n'
+        info_csv += 'conf0_err, confidence of wp_test_err_ub, ' + not_available + '\n'
 
     # save
     save_estimation_result(info_str)

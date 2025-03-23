@@ -72,7 +72,7 @@
       "name": "search_batch_size",
       "type": "int",
       "description": "batch size for parallel search",
-      "default_val": "20"
+      "default_val": "10"
     },
     {
       "name": "prediction_batch_size",
