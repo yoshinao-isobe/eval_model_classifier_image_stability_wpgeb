@@ -23,7 +23,7 @@ quality evaluation of machine learning components.
 
 ## Acknowledgment
 
-This work was partially supported by [the project JPNP20006](https://www.nedo.go.jp/activities/ZZJP_100176.html) commissioned by [NEDO](https://www.nedo.go.jp/). I would also like to express my gratitude to the members of the joint research project with Hitachi, Ltd. for their valuable advice on work.
+This work was partially supported by [the project JPNP20006](https://www.nedo.go.jp/activities/ZZJP_100176.html) commissioned by [NEDO](https://www.nedo.go.jp/). I would also like to express my gratitude to the members of the joint research project with Hitachi, Ltd. for their valuable advice on this work.
 
 
 ## License
