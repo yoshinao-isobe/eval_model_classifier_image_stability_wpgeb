@@ -1,3 +1,7 @@
+Copyright (C) 2025 AIST  
+
+---
+
 # eval_model_classifier_image_stability_wpgeb
 
 ## Abstract
@@ -17,7 +21,9 @@ used in [Qunomon](https://aistairc.github.io/qunomon/index_en.html) for assessin
 Qunomon is a flexible framework designed for the
 quality evaluation of machine learning components.
 
+## Acknowledgments
 
+This work was partially supported by [the project JPNP20006](https://www.nedo.go.jp/activities/ZZJP_100176.html) commissioned by [NEDO](https://www.nedo.go.jp/). I would like to express my gratitude to the members of the joint research project with Hitachi, Ltd. for their valuable advice to the discussions on this study.
 
 ## License
 
